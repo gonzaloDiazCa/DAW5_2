@@ -1,0 +1,197 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.cabecera {
+    /*Convertimos el header en un elemento flex de columnas para que el nav y la imagen estén oredenados
+    de forma vertical*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cabecera img {
+    margin: 100px 5px 50px 5px;
+    /*Establecemos unos máximos para el tamaño de nuestra imagen*/
+    max-height: 500px;
+    max-width: 1200px;
+    /*Al otorgarle un valor porcentual a nuestra imagen en lugar de uno fijo, esta se adaptará al 
+    espacio disponible, haciendo nuestra página más responsive*/
+    height: 100%;
+    width: 100%;
+}
+
+nav {
+    /*El nav es in elemento flex principalmente para usar la propiedad justify-content y distribuir
+    los links de manera equitativa por el nav más facilmente*/
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: darkslategray;
+    text-align: center;
+    /*Con position y top fijamos el nav a la parte superior de la pantalla*/
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+/*Simula el logo de la empresa*/
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+}
+.link {
+    /*.link tiene una posición relativa para que .esquinas, que son los elementos que usaremos
+    para nuestra animación, pueda usar position absolute y situarse fuera de los límites de su
+    contenedor (.link)*/
+    position: relative;
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    margin: 15px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    /*Con overflow: hidden; consigueremos que los elementos hijos posicionados fuera de .link sean
+    invisibles al usuario*/
+    overflow: hidden;
+    /*Le otorgamos a .link un z-index mayor que a .esquinas para evitar que al ejecutarse la animación
+    .esquinas solape a .link*/
+    z-index: 2;
+}
+
+#prueba {
+    box-shadow: inset 3.5em 0 0 0 #91e1f9, -inset -3.5em 0 0 0 #91e1f9;
+}
+
+.esquinas {
+    /*.esquinas tiene posición absoluta para poder situar cada una de los dos elementos que forman
+    nuestra animación fuera de su elemento padre, para que no sean visibles hasta que comience la
+    animación que los desplazará hasta dentro de .link*/
+    position: absolute;
+    height: 50%;
+    width: 100%;
+    /*El color blanco con una transparencia de 0.5 nos dará la apariencia que necesitamos para esquinas*/
+    background-color: rgba(255,255,255,0.5);
+    z-index: 1;
+    /*Seleccionamos mediante all los dos elementos transicionables, al estar espicificado en posteriores
+    selectores css que cada atributo afecta a un elemento concreto, podemos seleccionar ambos a la vez
+    desde la clase que comparten los dos elementos que sufren las transiciones*/
+    transition: all 0.5s linear;
+}
+/*Selectores que especifican la posición de cada uno de los elementos que crearan el efecto que
+deseamos*/
+#sup_izq {left: -100%; top: 0;}#inf_der {right: -100%; bottom: 0;}
+/*Selectores que mueven nuestros elementos hacia .link, haciendolos visibles y creando el efecto 
+deseado*/
+.link:hover #sup_izq{
+    left: 0;
+}
+.link:hover #inf_der{
+    right: 0;
+}
+
+.noticias {
+    /*Flex agrupará nuestras noticias en filas*/
+    display: flex;
+    justify-content: center;
+    /*Flex wrap permitirá que en caso de que las noticias sobrepasen la anchura de .noticias se 
+    pongan en una fila justo debajo*/
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 50px 5px;
+    text-align: center;
+}
+
+.noticia {
+    /*Cada noticia es un elmento flex simplemente para facilitar la tarea de centrar los contenidos*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color:whitesmoke;
+    padding: 10px;
+    /*Cada noticia ocupará la totalidad del ancho que tenga disponible*/
+    width: 100%;
+    /*El tamaño base de cada noticia será de 250px, y aumentarán o disminuiran su tamaño según el
+    tamaño de la ventana en la misma propoción*/
+    flex: 1 1 250px;
+}
+
+.noticia img {
+    /*Ancho del 100% del espacio disponible para que la imagen se adapte a las variaciones del ancho
+    de la noticia, y altura máxima de 183px para que no se sobreponga a la descripción*/
+    width: 100%;
+    max-height: 183px;
+}
+
+.pie_pagina {
+    /*El pie de página es una elemento flex para facilitar la tarea de centrar sus contenidos
+    y para hacer más responsive nuestra página*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 68px;
+    width: 100%;
+    /*Posición fija en la parte inferior de la ventana*/
+    position: fixed;
+    bottom: 0;
+    background-color: darkslategray;
+}
+/*.correo contiene tanto nuestro icono de correo como el input en el que especificaremos el mismo
+tiene posición relativa porque necesitamos que sus contenidos tengan posición absoluta*/
+.correo {
+    position: relative;
+    height: 100%;
+    min-width: 50px;
+}
+.icono {
+    /*Icono tiene una posición absoluta en el centro de .correo, esto es necesario para el funcionamiento
+    de nuestras animaciones*/
+    position: absolute;
+    left: 0;
+    top: 10px;
+    color: white;
+    padding: 10px;
+    border-radius: 100%;
+    /*El icono de correo es en realidad el fondo de un elemento span*/
+    background-image: url("imagenes/icono.png");
+    background-size: cover;
+    background-position: center;
+    width: 25px;
+    height: 25px;
+    /*Un z-index elevado para impedir que nuestro input solape al icono de correo*/
+    z-index: 10;
+    transition: all 0.5s;
+}
+
+input {
+    /*El input tambien tiene posicionamiento absoluto yesta situado en el centro al igual que 
+    .icono*/
+    position:absolute;
+    text-align: center;
+    left: 0;
+    top: 24px;
+    /*No tiene ni ancho, ni padding, ni borde. Todo esto para que no sea visible hasta que empiece 
+    nuestra animación. Al estar en el mismo lugar que .icono al aparecer, da la impresión de que
+    durge del mismo*/
+    width: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 5px;
+    transition: all 400ms;
+}
+/*Cuando hagamos hover sobre .correo, .icono se moverá a la izquierda*/
+.correo:hover .icono {
+    left: -100px;
+}
+/*Cuando hagamos hover sobre .correo, el input se moverá a la izquierda, le otorgaremos una anchura
+de 200px, un padding y un borde para hacerlo visible para el usuario*/
+.correo:hover input {
+    left: -70px;
+    padding: 3px 5px;
+    border: 2px black;
+    width: 200px;
+}

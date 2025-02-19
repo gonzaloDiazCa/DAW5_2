@@ -1,0 +1,1 @@
+const documento = 2;
